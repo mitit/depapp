@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -46,9 +47,7 @@ public class DepartmentRepositoryImpl extends JdbcDaoSupport implements Departme
         dataSource.setPassword("postgres");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-        List<Department> departmentList = jdbcTemplate.queryForList(SQL_SELECT_ALL_FROM_DEPARTMENT, Department.class);
-
-        return departmentList;
+        return jdbcTemplate.query("select * from department", ROW_MAPPER);
     }
 }
 

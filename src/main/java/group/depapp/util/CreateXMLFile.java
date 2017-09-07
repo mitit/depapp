@@ -1,5 +1,6 @@
 package group.depapp.util;
 
+import javax.annotation.PreDestroy;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.transform.Transformer;
@@ -11,13 +12,16 @@ import group.depapp.domain.Department;
 import group.depapp.domain.DepartmentDTO;
 import group.depapp.service.DepartmentService;
 import group.depapp.service.DepartmentServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
 import java.io.File;
 import java.util.List;
 
-
+@Component
 public class CreateXMLFile {
 
     public void create() {
@@ -37,8 +41,8 @@ public class CreateXMLFile {
 
             for (DepartmentDTO departmentDTO : departmentDTOList) {
                 Element department = doc.createElement("department");
-                Attr attrID = doc.createAttribute("id");
-                attrID.setValue(departmentDTO.getId().toString());
+//                Attr attrID = doc.createAttribute("id");
+//                attrID.setValue(departmentDTO.getId().toString());
 
                 Element depCode = doc.createElement("depCode");
                 depCode.appendChild(doc.createTextNode(departmentDTO.getDepCode()));
@@ -51,6 +55,8 @@ public class CreateXMLFile {
                 Element desc = doc.createElement("description");
                 desc.appendChild(doc.createTextNode(departmentDTO.getDescription()));
                 department.appendChild(desc);
+
+
             }
         } catch (Exception e) {
             e.printStackTrace();
