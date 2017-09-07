@@ -1,24 +1,14 @@
 package group.depapp.util;
 
-import javax.annotation.PreDestroy;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-import group.depapp.domain.Department;
 import group.depapp.domain.DepartmentDTO;
 import group.depapp.service.DepartmentService;
 import group.depapp.service.DepartmentServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import java.io.File;
 import java.util.List;
 
 @Component
