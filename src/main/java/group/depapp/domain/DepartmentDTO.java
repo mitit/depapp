@@ -7,6 +7,9 @@ public class DepartmentDTO {
     private String depJob;
     private String description;
 
+    public DepartmentDTO() {
+    }
+
     public DepartmentDTO(Department department) {
         this.id = department.getId();
         this.depCode = department.getDepCode();
@@ -44,5 +47,15 @@ public class DepartmentDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Department toDepartmentEntity(DepartmentDTO departmentDTO) {
+        Department department = new Department();
+
+        department.setDepCode(departmentDTO.getDepCode());
+        department.setDepJob(departmentDTO.getDepJob());
+        department.setDescription(departmentDTO.getDescription());
+
+        return department;
     }
 }

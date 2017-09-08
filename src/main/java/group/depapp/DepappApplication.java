@@ -34,7 +34,7 @@ public class DepappApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         CreateXMLFile createXMLFile = new CreateXMLFile();
-        createXMLFile.create();
+        createXMLFile.parse();
 
         if (args.length > 0) {
             System.out.println("LOOoooool");

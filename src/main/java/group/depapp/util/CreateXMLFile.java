@@ -11,11 +11,10 @@ import group.depapp.domain.DepartmentDTO;
 import group.depapp.service.DepartmentService;
 import group.depapp.service.DepartmentServiceImpl;
 import org.springframework.stereotype.Component;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import org.w3c.dom.*;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -41,7 +40,7 @@ public class CreateXMLFile {
             doc.appendChild(rootElement);
 
             for (DepartmentDTO departmentDTO : departmentDTOList) {
-                Element department = doc.createElement("department" + departmentDTO.getDepCode() + departmentDTO.getDepJob());
+                Element department = doc.createElement("department");
                 rootElement.appendChild(department);
 //                Attr attrID = doc.createAttribute("id");
 //                attrID.setValue(departmentDTO.getId().toString());
@@ -70,4 +69,67 @@ public class CreateXMLFile {
             e.printStackTrace();
         }
     }
+
+    public void parse() {
+        List<DepartmentDTO> departmentDTOList = new ArrayList<>();
+        try {
+            File inputFile = new File("db.xml");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(inputFile);
+            doc.getDocumentElement().normalize();
+            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+            NodeList nList = doc.getElementsByTagName("department");
+            System.out.println("----------------------------");
+
+
+
+            for (int temp = 0; temp < nList.getLength(); temp++) {
+                Node nNode = nList.item(temp);
+                System.out.println("\nCurrent Element :" + nNode.getNodeName());
+                DepartmentDTO departmentDTO = new DepartmentDTO();
+
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+//                    System.out.println("Student roll no : "
+//                            + eElement.getAttribute("rollno"));
+                    departmentDTO.setDepCode(eElement.getElementsByTagName("depCode").item(0).getTextContent());
+//                    System.out.println("depcode : "
+//                            + eElement
+//                            .getElementsByTagName("depCode")
+//                            .item(0)
+//                            .getTextContent());
+                    departmentDTO.setDepJob(eElement.getElementsByTagName("depJob").item(0).getTextContent());
+//                    System.out.println("Dep Job: "
+//                            + eElement
+//                            .getElementsByTagName("depJob")
+//                            .item(0)
+//                            .getTextContent());
+
+                    if (eElement.getElementsByTagName("description").item(0) != null){
+//                        System.out.println("Desc : "
+//                                + eElement
+//                                .getElementsByTagName("description")
+//                                .item(0)
+//                                .getTextContent());
+                        departmentDTO.setDescription(eElement.getElementsByTagName("description").item(0).getTextContent());
+                    } else {
+//                        System.out.println("Desc absent");
+                    }
+//                    System.out.println("Marks : "
+//                            + eElement
+//                            .getElementsByTagName("marks")
+//                            .item(0)
+//                            .getTextContent());
+                }
+
+                departmentDTOList.add(departmentDTO);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        for (DepartmentDTO departmentDTO : departmentDTOList)
+            System.out.println("c:" + departmentDTO.getDepCode() + " j:" +
+                    departmentDTO.getDepJob() + " desc:" + departmentDTO.getDescription());    }
 }
