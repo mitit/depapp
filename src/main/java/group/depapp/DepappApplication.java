@@ -1,8 +1,10 @@
 package group.depapp;
 
 import group.depapp.domain.Department;
+import group.depapp.domain.DepartmentDTO;
 import group.depapp.repository.DepartmentRepositoryImpl;
-import group.depapp.util.CreateXMLFile;
+import group.depapp.service.DepartmentServiceImpl;
+import group.depapp.util.XMLHandler;
 import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,9 +14,9 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.System.exit;
 
@@ -33,8 +35,14 @@ public class DepappApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        CreateXMLFile createXMLFile = new CreateXMLFile();
-        createXMLFile.parse();
+        DepartmentServiceImpl departmentService = new DepartmentServiceImpl();
+        DepartmentDTO departmentDTO = new DepartmentDTO(new Department("2", "dev", "newDesc"));
+        DepartmentDTO departmentDTO1 = new DepartmentDTO(new Department("4", "mark", "newDesc"));
+        List<DepartmentDTO> departmentDTOS = new ArrayList<>();
+        departmentDTOS.add(departmentDTO);
+        departmentDTOS.add(departmentDTO1);
+        departmentService.delete(departmentDTOS);
+
 
         if (args.length > 0) {
             System.out.println("LOOoooool");

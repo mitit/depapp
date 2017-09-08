@@ -10,4 +10,8 @@ public interface DepartmentService {
     boolean persist(Department department);
 
     List<DepartmentDTO> getAll();
+
+    boolean delete(List<DepartmentDTO> departmentDTOS);
+
+    boolean update(DepartmentDTO departmentDTO);
 }

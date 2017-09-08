@@ -21,5 +21,11 @@ public interface DepartmentRepository<X extends MainDomain> {
     void persist(X domain);
 
     List<X> getAll();
+
+    void update(X domain);
+
+    void delete(X domain);
+
+    void delete(List<X> domainList);
 }
 

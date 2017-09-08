@@ -1,8 +1,9 @@
 package group.depapp.domain;
 
+import java.util.Objects;
+
 public class DepartmentDTO {
 
-    private Integer id;
     private String depCode;
     private String depJob;
     private String description;
@@ -11,18 +12,9 @@ public class DepartmentDTO {
     }
 
     public DepartmentDTO(Department department) {
-        this.id = department.getId();
         this.depCode = department.getDepCode();
         this.depJob = department.getDepJob();
         this.description = department.getDescription();
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getDepCode() {
@@ -49,13 +41,33 @@ public class DepartmentDTO {
         this.description = description;
     }
 
-    public Department toDepartmentEntity(DepartmentDTO departmentDTO) {
+    public Department toDepartmentEntity() {
         Department department = new Department();
 
-        department.setDepCode(departmentDTO.getDepCode());
-        department.setDepJob(departmentDTO.getDepJob());
-        department.setDescription(departmentDTO.getDescription());
+        department.setDepCode(this.getDepCode());
+        department.setDepJob(this.getDepJob());
+        department.setDescription(this.getDescription());
 
         return department;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DepartmentDTO that = (DepartmentDTO) o;
+
+        if (!depCode.equals(that.depCode)) return false;
+        if (!depJob.equals(that.depJob)) return false;
+        return description != null ? description.equals(that.description) : that.description == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = depCode.hashCode();
+        result = 31 * result + depJob.hashCode();
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        return result;
     }
 }

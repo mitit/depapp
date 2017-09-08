@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class CreateXMLFile {
+public class XMLHandler {
 
     public void create() {
 
@@ -70,7 +70,7 @@ public class CreateXMLFile {
         }
     }
 
-    public void parse() {
+    public List<DepartmentDTO> parse() {
         List<DepartmentDTO> departmentDTOList = new ArrayList<>();
         try {
             File inputFile = new File("db.xml");
@@ -81,7 +81,6 @@ public class CreateXMLFile {
             System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
             NodeList nList = doc.getElementsByTagName("department");
             System.out.println("----------------------------");
-
 
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
@@ -106,7 +105,7 @@ public class CreateXMLFile {
 //                            .item(0)
 //                            .getTextContent());
 
-                    if (eElement.getElementsByTagName("description").item(0) != null){
+                    if (eElement.getElementsByTagName("description").item(0) != null) {
 //                        System.out.println("Desc : "
 //                                + eElement
 //                                .getElementsByTagName("description")
@@ -131,5 +130,8 @@ public class CreateXMLFile {
 
         for (DepartmentDTO departmentDTO : departmentDTOList)
             System.out.println("c:" + departmentDTO.getDepCode() + " j:" +
-                    departmentDTO.getDepJob() + " desc:" + departmentDTO.getDescription());    }
+                    departmentDTO.getDepJob() + " desc:" + departmentDTO.getDescription());
+
+        return departmentDTOList;
+    }
 }
