@@ -4,12 +4,14 @@ import group.depapp.domain.Department;
 import group.depapp.domain.DepartmentDTO;
 import group.depapp.repository.DepartmentRepositoryImpl;
 import group.depapp.service.DepartmentServiceImpl;
+import group.depapp.util.JpaConfig;
 import group.depapp.util.Synchronizer;
 import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,10 +25,11 @@ import static java.lang.System.exit;
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 @ComponentScan
+@EntityScan("group.depapp")
 public class DepappApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(DepappApplication.class);
+        SpringApplication app = new SpringApplication(new Class<?>[] {DepappApplication.class, JpaConfig.class});
 
         app.setBannerMode(Banner.Mode.OFF);
         app.run(args);
