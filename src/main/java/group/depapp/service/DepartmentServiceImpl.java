@@ -3,12 +3,14 @@ package group.depapp.service;
 import group.depapp.domain.Department;
 import group.depapp.domain.DepartmentDTO;
 import group.depapp.repository.DepartmentRepositoryImpl;
-
+import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class DepartmentServiceImpl implements DepartmentService{
+
+    private static final Logger log = Logger.getLogger(DepartmentServiceImpl.class);
 
     @Override
     public boolean save(List<DepartmentDTO> departmentDTOS) {
@@ -26,6 +28,7 @@ public class DepartmentServiceImpl implements DepartmentService{
             }
             return true;
         } catch (Exception e) {
+            log.error("ERROR SAVING DATA: " + e.getMessage(), e);
             return false;
         }
     }
@@ -55,6 +58,7 @@ public class DepartmentServiceImpl implements DepartmentService{
             }
                 return true;
         } catch (Exception e) {
+            log.error("ERROR DELETING DATA: " + e.getMessage(), e);
             return false;
         }
     }
@@ -67,6 +71,7 @@ public class DepartmentServiceImpl implements DepartmentService{
                 departmentRepository.update(departmentDTO.toDepartmentEntity());
             return true;
         } catch (Exception e) {
+            log.error("ERROR UPDATING DATA: " + e.getMessage(), e);
             return false;
         }
     }

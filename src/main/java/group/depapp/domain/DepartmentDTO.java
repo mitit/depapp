@@ -1,6 +1,5 @@
 package group.depapp.domain;
 
-import java.util.Objects;
 
 public class DepartmentDTO {
 

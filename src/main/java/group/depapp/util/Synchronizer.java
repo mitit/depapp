@@ -2,7 +2,6 @@ package group.depapp.util;
 
 import group.depapp.domain.DepartmentDTO;
 import group.depapp.service.DepartmentServiceImpl;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

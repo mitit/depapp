@@ -8,11 +8,11 @@
 	<department>
 		<depCode>2</depCode>
 		<depJob>dev</depJob>
-		<description>newDesc</description>
+		<description>desc</description>
 	</department>
 	<department>
 		<depCode>3</depCode>
 		<depJob>marketing</depJob>
-		<description>oldDesc</description>
+		<description>desc</description>
 	</department>
 </table>

@@ -2,17 +2,11 @@ package group.depapp.repository;
 
 import group.depapp.domain.Department;
 import group.depapp.domain.MainDomain;
+import group.depapp.util.JpaConfig;
 import org.springframework.jdbc.core.JdbcOperations;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
-
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.Properties;
-import java.util.Set;
 
 public interface DepartmentRepository<X extends MainDomain> {
 
@@ -21,6 +15,8 @@ public interface DepartmentRepository<X extends MainDomain> {
                 resultSet.getString("dep_job"),
                 resultSet.getString("description"));
     };
+
+//    JdbcOperations jdbcTemplate = JpaConfig.jdbcTemplate();
 
     void save(X domain);
 
