@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DepartmentService {
 
-    boolean persist(Department department);
+    boolean save(List<DepartmentDTO> departmentDTOS);
 
     List<DepartmentDTO> getAll();
 

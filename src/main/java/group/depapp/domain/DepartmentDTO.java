@@ -59,15 +59,13 @@ public class DepartmentDTO {
         DepartmentDTO that = (DepartmentDTO) o;
 
         if (!depCode.equals(that.depCode)) return false;
-        if (!depJob.equals(that.depJob)) return false;
-        return description != null ? description.equals(that.description) : that.description == null;
+        return depJob.equals(that.depJob);
     }
 
     @Override
     public int hashCode() {
         int result = depCode.hashCode();
         result = 31 * result + depJob.hashCode();
-        result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
 }

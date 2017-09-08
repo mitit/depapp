@@ -2,10 +2,7 @@ package group.depapp.service;
 
 import group.depapp.domain.Department;
 import group.depapp.domain.DepartmentDTO;
-import group.depapp.repository.DepartmentRepository;
 import group.depapp.repository.DepartmentRepositoryImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +11,19 @@ import java.util.stream.Collectors;
 public class DepartmentServiceImpl implements DepartmentService{
 
     @Override
-    public boolean persist(Department department) {
+    public boolean save(List<DepartmentDTO> departmentDTOS) {
         DepartmentRepositoryImpl departmentRepository = new DepartmentRepositoryImpl();
 
+        ArrayList<Department> departments = new ArrayList<>();
+
+        for (DepartmentDTO departmentDTO : departmentDTOS) departments.add(departmentDTO.toDepartmentEntity());
+
         try {
-            departmentRepository.persist(department);
+            if (departments.size() == 1) {
+                departmentRepository.save(departments.get(0));
+            } else {
+                departmentRepository.save(departments);
+            }
             return true;
         } catch (Exception e) {
             return false;
@@ -41,7 +46,6 @@ public class DepartmentServiceImpl implements DepartmentService{
         ArrayList<Department> departments = new ArrayList<>();
 
         for (DepartmentDTO departmentDTO : departmentDTOS) departments.add(departmentDTO.toDepartmentEntity());
-
 
         try {
             if (departments.size() == 1) {

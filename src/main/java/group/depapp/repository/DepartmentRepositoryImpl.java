@@ -19,10 +19,9 @@ public class DepartmentRepositoryImpl extends JdbcDaoSupport implements Departme
 
     private static final String SQL_DELETE_FROM_DEPARTMENT = "delete from department where (dep_code = ? and dep_job = ?)";
 
-    private static final String TEST = "delete from department where (dep_code = ? and dep_job = ?) or (dep_code = ? and dep_job = ?)";
 
     @Override
-    public void persist(Department dep) {
+    public void save(Department dep) {
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
         dataSource.setDriverClass(org.postgresql.Driver.class);
         dataSource.setUsername("postgres");
@@ -33,6 +32,25 @@ public class DepartmentRepositoryImpl extends JdbcDaoSupport implements Departme
         jdbcTemplate.update(SQL_INSERT_DEPARTMENT,
                 dep.getDepCode(), dep.getDepJob(), dep.getDescription());
 
+    }
+
+    @Override
+    public void save(List<Department> departmentList) {
+        SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
+        dataSource.setDriverClass(org.postgresql.Driver.class);
+        dataSource.setUsername("postgres");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
+        dataSource.setPassword("postgres");
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+
+        String newInsertString = SQL_INSERT_DEPARTMENT;
+
+        for (int i = 0; i < departmentList.size(); i++) {
+            if (i != 0)
+                newInsertString += ", ( '" + departmentList.get(i).getDepCode() + "', '" + departmentList.get(i).getDepJob() + "', '" + departmentList.get(i).getDescription() + "')";
+        }
+        System.out.println(newInsertString);
+        jdbcTemplate.update(newInsertString, departmentList.get(0).getDepCode(), departmentList.get(0).getDepJob(), departmentList.get(0).getDescription());
     }
 
     @Override
@@ -81,12 +99,12 @@ public class DepartmentRepositoryImpl extends JdbcDaoSupport implements Departme
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
         String newDeleteString = SQL_DELETE_FROM_DEPARTMENT;
-        List<String> parameters = new ArrayList<>();
 
         for (int i = 0; i < departmentList.size(); i++) {
-            if (i != 0) newDeleteString+= " or (dep_code = '" +  departmentList.get(i).getDepCode() + "' and dep_job = '" + departmentList.get(i).getDepJob() +"')";
-//            parameters.add(departmentList.get(i).getDepCode());
-//            parameters.add(departmentList.get(i).getDepJob());
+            if (i != 0)
+                newDeleteString += " or (dep_code = '" + departmentList.get(i).getDepCode() + "' and dep_job = '" + departmentList.get(i).getDepJob() + "')";
+//            parameters.save(departmentList.get(i).getDepCode());
+//            parameters.save(departmentList.get(i).getDepJob());
         }
 
         System.out.println(newDeleteString);

@@ -18,7 +18,9 @@ public interface DepartmentRepository<X extends MainDomain> {
     };
 
 
-    void persist(X domain);
+    void save(X domain);
+
+    void save(List<X> domainList);
 
     List<X> getAll();
 

@@ -4,7 +4,7 @@ import group.depapp.domain.Department;
 import group.depapp.domain.DepartmentDTO;
 import group.depapp.repository.DepartmentRepositoryImpl;
 import group.depapp.service.DepartmentServiceImpl;
-import group.depapp.util.XMLHandler;
+import group.depapp.util.Synchronizer;
 import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -35,13 +35,16 @@ public class DepappApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        DepartmentServiceImpl departmentService = new DepartmentServiceImpl();
-        DepartmentDTO departmentDTO = new DepartmentDTO(new Department("2", "dev", "newDesc"));
-        DepartmentDTO departmentDTO1 = new DepartmentDTO(new Department("4", "mark", "newDesc"));
-        List<DepartmentDTO> departmentDTOS = new ArrayList<>();
-        departmentDTOS.add(departmentDTO);
-        departmentDTOS.add(departmentDTO1);
-        departmentService.delete(departmentDTOS);
+//        DepartmentServiceImpl departmentService = new DepartmentServiceImpl();
+//        DepartmentDTO departmentDTO = new DepartmentDTO(new Department("2", "dev", "newDesc"));
+//        DepartmentDTO departmentDTO1 = new DepartmentDTO(new Department("4", "mark", "newDesc"));
+//        List<DepartmentDTO> departmentDTOS = new ArrayList<>();
+//        departmentDTOS.add(departmentDTO);
+//        departmentDTOS.add(departmentDTO1);
+//        departmentService.save(departmentDTOS);
+
+        Synchronizer synchronizer = new Synchronizer();
+        synchronizer.synchronize();
 
 
         if (args.length > 0) {
