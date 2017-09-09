@@ -34,27 +34,21 @@ public class Synchronizer {
         List<DepartmentDTO> departmentsToDelete = new ArrayList<>();
         List<DepartmentDTO> departmentsToInsert = new ArrayList<>();
 
-        for (DepartmentDTO departmentDTO : dtosFromXML) mapForSynchronization.put(departmentDTO, false);
-
-        for (DepartmentDTO departmentDTO : dtosFromDB) {
-
-            if (!mapForSynchronization.containsKey(departmentDTO)) {
-                departmentsToDelete.add(departmentDTO);
+        dtosFromXML.forEach(dto -> mapForSynchronization.put(dto, false));
+        dtosFromDB.forEach(dto -> {
+            if (!mapForSynchronization.containsKey(dto)) {
+                departmentsToDelete.add(dto);
             } else {
-
-
-                for (Map.Entry<DepartmentDTO, Boolean> entry : mapForSynchronization.entrySet()) {
-
-                    if (entry.getKey().equals(departmentDTO) && entry.getKey().hashCode() == departmentDTO.hashCode()) {
-                        if (!entry.getKey().getDescription().equals(departmentDTO.getDescription())) {
-                            departmentService.update(entry.getKey());
-                        }
-                        entry.setValue(true);
-
+                mapForSynchronization.entrySet().stream()
+                        .filter(entry -> entry.getKey().equals(dto) && entry.getKey().hashCode() == dto.hashCode())
+                        .forEach(entry -> {
+                    if (!entry.getKey().getDescription().equals(dto.getDescription())) {
+                        departmentService.update(entry.getKey());
                     }
-                }
+                    entry.setValue(true);
+                });
             }
-        }
+        });
 
         for (Map.Entry<DepartmentDTO, Boolean> entry : mapForSynchronization.entrySet()) {
             if (!entry.getValue()) departmentsToInsert.add(entry.getKey());
