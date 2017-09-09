@@ -59,9 +59,6 @@ public class SynchronizeServiceImpl implements SynchronizeService {
         }
         if (departmentsToInsert.size() > 0)
             departmentService.save(departmentsToInsert);
-
-        if (true) throw new RuntimeException();
-
         if (departmentsToDelete.size() > 0)
             departmentService.delete(departmentsToDelete);
 

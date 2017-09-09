@@ -1,18 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<table>
-	<department>
-		<depCode>2</depCode>
-		<depJob>dev</depJob>
-		<description>newdesc</description>
-	</department>
-	<department>
-		<depCode>1</depCode>
-		<depJob>dev</depJob>
-		<description>desc</description>
-	</department>
-	<department>
-		<depCode>4</depCode>
-		<depJob>mark</depJob>
-		<description>desc</description>
-	</department>
-</table>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><table><department><depCode>1</depCode><depJob>dev</depJob><description>desc</description></department><department><depCode>2</depCode><depJob>dev</depJob><description>newdesc</description></department><department><depCode>5</depCode><depJob>mark</depJob><description>desc</description></department></table>
