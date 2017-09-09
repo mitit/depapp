@@ -22,12 +22,6 @@ public class Department implements Serializable {
         this.description = description;
     }
 
-    public Department(Department department) {
-        this.depCode = department.getDepCode();
-        this.depJob = department.getDepJob();
-        this.description = department.getDescription();
-    }
-
     public String getDepCode() {
         return depCode;
     }

@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
@@ -22,7 +21,6 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public boolean save(List<Department> departments) {
-
         try {
             if (departments.size() == 1) {
                 departmentRepository.save(departments.get(0));
@@ -39,16 +37,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public List<Department> getAll() {
-
-        return departmentRepository.getAll()
-                .stream()
-                .map(Department::new)
-                .collect(Collectors.toList());
+        return departmentRepository.getAll();
+//                .stream()
+//                .map(Department::new)
+//                .collect(Collectors.toList())
     }
 
     @Override
     public boolean delete(List<Department> departments) {
-
         try {
             if (departments.size() == 1) {
                 departmentRepository.delete(departments.get(0));
@@ -65,7 +61,6 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public boolean update(Department department) {
-
         try {
             departmentRepository.update(department.toDepartmentEntity());
             log.info("DATA UPDATED");

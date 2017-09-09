@@ -44,7 +44,8 @@ public class DepartmentRepositoryImpl implements DepartmentRepository<Department
                         + departmentList.get(i).getDepJob() + "', '"
                         + departmentList.get(i).getDescription() + "')";
         }
-        jdbcOperations.update(newInsertString, departmentList.get(0).getDepCode(), departmentList.get(0).getDepJob(), departmentList.get(0).getDescription());
+        jdbcOperations
+                .update(newInsertString, departmentList.get(0).getDepCode(), departmentList.get(0).getDepJob(), departmentList.get(0).getDescription());
     }
 
     @Override

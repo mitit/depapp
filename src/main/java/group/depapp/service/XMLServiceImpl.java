@@ -5,7 +5,6 @@ import group.depapp.exception.FieldTooLongException;
 import group.depapp.exception.FileContainsSameObjectsException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -26,7 +25,6 @@ import java.util.List;
 public class XMLServiceImpl implements XMLService {
 
     private static final Logger log = Logger.getLogger(XMLServiceImpl.class);
-
 
     private final DepartmentService departmentService;
 
@@ -61,11 +59,10 @@ public class XMLServiceImpl implements XMLService {
                 depJob.appendChild(doc.createTextNode(departmentDTO.getDepJob()));
                 department.appendChild(depJob);
 
-                if (departmentDTO.getDescription() != null) {
-                    Element desc = doc.createElement("description");
-                    desc.appendChild(doc.createTextNode(departmentDTO.getDescription()));
-                    department.appendChild(desc);
-                }
+                Element desc = doc.createElement("description");
+                desc.appendChild(doc.createTextNode(departmentDTO.getDescription()));
+                department.appendChild(desc);
+
             }
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -80,7 +77,7 @@ public class XMLServiceImpl implements XMLService {
     }
 
     @Override
-    public List<Department> loadData(String pathname) throws FileContainsSameObjectsException, FieldTooLongException{
+    public List<Department> loadData(String pathname) throws FileContainsSameObjectsException, FieldTooLongException {
         final List<Department> departmentList = new ArrayList<>();
         try {
             File inputFile = new File(pathname);
@@ -99,10 +96,7 @@ public class XMLServiceImpl implements XMLService {
 
                     department.setDepCode(eElement.getElementsByTagName("depCode").item(0).getTextContent());
                     department.setDepJob(eElement.getElementsByTagName("depJob").item(0).getTextContent());
-
-                    if (eElement.getElementsByTagName("description").item(0) != null) {
-                        department.setDescription(eElement.getElementsByTagName("description").item(0).getTextContent());
-                    }
+                    department.setDescription(eElement.getElementsByTagName("description").item(0).getTextContent());
                 }
                 departmentList.add(department);
                 log.info("XML FILE PARSED");
@@ -113,7 +107,8 @@ public class XMLServiceImpl implements XMLService {
 
         for (int i = 0; i < departmentList.size(); i++) {
             for (int j = 0; j < departmentList.size(); j++) {
-                if (departmentList.get(i) == departmentList.get(j) && i != j) throw new FileContainsSameObjectsException();
+                if (departmentList.get(i) == departmentList.get(j) && i != j)
+                    throw new FileContainsSameObjectsException();
             }
 
             if (departmentList.get(i).getDescription().length() > 255
