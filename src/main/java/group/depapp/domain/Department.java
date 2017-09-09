@@ -32,6 +32,14 @@ public class Department implements Serializable {
         this.description = department.getDescription();
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getDepCode() {
         return depCode;
     }

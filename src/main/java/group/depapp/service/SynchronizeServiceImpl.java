@@ -1,7 +1,6 @@
-package group.depapp.util;
+package group.depapp.service;
 
 import group.depapp.domain.Department;
-import group.depapp.service.DepartmentService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,40 +12,40 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class Synchronizer {
+public class SynchronizeServiceImpl implements SynchronizeService {
 
-    private static final Logger log = Logger.getLogger(Synchronizer.class);
+    private static final Logger log = Logger.getLogger(SynchronizeServiceImpl.class);
 
 
     private DepartmentService departmentService;
 
     @Autowired
-    public Synchronizer(DepartmentService departmentService) {
+    public SynchronizeServiceImpl(DepartmentService departmentService) {
         this.departmentService = departmentService;
     }
 
+    @Override
     @Transactional
     public void synchronize() {
-        XMLHandler xmlHandler = new XMLHandler(departmentService);
+        XMLService xmlService = new XMLServiceImpl(departmentService);
 
-
-        List<Department> dtosFromXML = xmlHandler.parse();
-        List<Department> dtosFromDB = departmentService.getAll();
-
-        Map<Department, Boolean> mapForSynchronization = new HashMap<>();
+        List<Department> departmentsFromXML = xmlService.parse();
+        List<Department> departmentsFromDB = departmentService.getAll();
 
         List<Department> departmentsToDelete = new ArrayList<>();
         List<Department> departmentsToInsert = new ArrayList<>();
 
-        dtosFromXML.forEach(dto -> mapForSynchronization.put(dto, false));
-        dtosFromDB.forEach(dto -> {
-            if (!mapForSynchronization.containsKey(dto)) {
-                departmentsToDelete.add(dto);
+        Map<Department, Boolean> mapForSynchronization = new HashMap<>();
+        departmentsFromXML.forEach(department -> mapForSynchronization.put(department, false));
+
+        departmentsFromDB.forEach(department -> {
+            if (!mapForSynchronization.containsKey(department)) {
+                departmentsToDelete.add(department);
             } else {
                 mapForSynchronization.entrySet().stream()
-                        .filter(entry -> entry.getKey().equals(dto) && entry.getKey().hashCode() == dto.hashCode())
+                        .filter(entry -> entry.getKey().equals(department) && entry.getKey().hashCode() == department.hashCode())
                         .forEach(entry -> {
-                    if (!entry.getKey().getDescription().equals(dto.getDescription())) {
+                    if (!entry.getKey().getDescription().equals(department.getDescription())) {
                         departmentService.update(entry.getKey());
                     }
                     entry.setValue(true);

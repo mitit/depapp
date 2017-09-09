@@ -1,7 +1,6 @@
-package group.depapp.util;
+package group.depapp.service;
 
 import group.depapp.domain.Department;
-import group.depapp.service.DepartmentService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,18 +20,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class XMLHandler {
+public class XMLServiceImpl implements XMLService {
 
-    private static final Logger log = Logger.getLogger(XMLHandler.class);
+    private static final Logger log = Logger.getLogger(XMLServiceImpl.class);
 
 
     private DepartmentService departmentService;
 
     @Autowired
-    public XMLHandler(DepartmentService departmentService) {
+    public XMLServiceImpl(DepartmentService departmentService) {
         this.departmentService = departmentService;
     }
 
+    @Override
     public void create() {
 
         List<Department> departmentList = departmentService.getAll();
@@ -80,6 +80,7 @@ public class XMLHandler {
         }
     }
 
+    @Override
     public List<Department> parse() {
         List<Department> departmentList = new ArrayList<>();
         try {

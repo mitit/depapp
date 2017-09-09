@@ -1,7 +1,7 @@
 package group.depapp;
 
-import group.depapp.util.Synchronizer;
-import group.depapp.util.XMLHandler;
+import group.depapp.service.SynchronizeService;
+import group.depapp.service.XMLService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+
 import static java.lang.System.exit;
 
 @SpringBootApplication
@@ -23,10 +24,10 @@ public class DepappApplication implements CommandLineRunner {
     private static final Logger log = Logger.getLogger(DepappApplication.class);
 
     @Autowired
-    private Synchronizer synchronizer;
+    private SynchronizeService synchronizeService;
 
     @Autowired
-    private XMLHandler xmlHandler;
+    private XMLService xmlService;
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(DepappApplication.class);
@@ -42,10 +43,10 @@ public class DepappApplication implements CommandLineRunner {
             String command = args[0];
             switch (command) {
                 case "create":
-                    xmlHandler.create();
+                    xmlService.create();
                     break;
                 case "sync":
-                    synchronizer.synchronize();
+                    synchronizeService.synchronize();
                     break;
                 default:
                     break;
