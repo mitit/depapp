@@ -62,7 +62,6 @@ public class XMLServiceImpl implements XMLService {
                 Element desc = doc.createElement("description");
                 desc.appendChild(doc.createTextNode(departmentDTO.getDescription()));
                 department.appendChild(desc);
-
             }
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
