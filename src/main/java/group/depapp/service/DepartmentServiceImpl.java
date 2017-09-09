@@ -3,7 +3,6 @@ package group.depapp.service;
 import group.depapp.domain.Department;
 import group.depapp.domain.DepartmentDTO;
 import group.depapp.repository.DepartmentRepository;
-import group.depapp.repository.DepartmentRepositoryImpl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
