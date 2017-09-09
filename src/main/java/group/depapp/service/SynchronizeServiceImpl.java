@@ -1,6 +1,7 @@
 package group.depapp.service;
 
 import group.depapp.domain.Department;
+import group.depapp.exception.FieldTooLongException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +28,13 @@ public class SynchronizeServiceImpl implements SynchronizeService {
     @Transactional
     public void synchronize() {
         final XMLService xmlService = new XMLServiceImpl(departmentService);
+        List<Department> departmentsFromXML = null;
 
-        final List<Department> departmentsFromXML = xmlService.loadData();
+        try {
+            departmentsFromXML = xmlService.loadData();
+        } catch (Exception e) {
+            log.error("ERROR XML GETTING" + e.getMessage(), e);
+        }
         final List<Department> departmentsFromDB = departmentService.getAll();
 
         final List<Department> departmentsToDelete = new ArrayList<>();

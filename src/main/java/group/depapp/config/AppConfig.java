@@ -34,9 +34,6 @@ public class AppConfig {
 
     private static final Logger log = Logger.getLogger(AppConfig.class);
 
-    @Autowired
-    private Environment env;
-
     @Value("${init-db:false}")
     private String initDatabase;
 

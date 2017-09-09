@@ -1,6 +1,8 @@
 package group.depapp.service;
 
 import group.depapp.domain.Department;
+import group.depapp.exception.FieldTooLongException;
+import group.depapp.exception.FileContainsSameObjectsException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -78,7 +80,7 @@ public class XMLServiceImpl implements XMLService {
     }
 
     @Override
-    public List<Department> loadData() {
+    public List<Department> loadData() throws FileContainsSameObjectsException, FieldTooLongException{
         final List<Department> departmentList = new ArrayList<>();
         try {
             File inputFile = new File("db.xml");
@@ -107,6 +109,16 @@ public class XMLServiceImpl implements XMLService {
             }
         } catch (Exception e) {
             log.error("ERROR PARSING XML FILE" + e.getMessage(), e);
+        }
+
+        for (int i = 0; i < departmentList.size(); i++) {
+            for (int j = 0; j < departmentList.size(); j++) {
+                if (departmentList.get(i) == departmentList.get(j) && i != j) throw new FileContainsSameObjectsException();
+            }
+
+            if (departmentList.get(i).getDescription().length() > 255
+                    || departmentList.get(i).getDepJob().length() > 100
+                    || departmentList.get(i).getDepCode().length() > 20) throw new FieldTooLongException();
         }
 
         return departmentList;

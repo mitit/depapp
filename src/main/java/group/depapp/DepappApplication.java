@@ -50,7 +50,7 @@ public class DepappApplication implements CommandLineRunner {
             log.info("APP STARTED");
         } else {
             System.out.println("Не введена команда");
-            log.info("COMMAND NOT FOUND");
+            log.error("COMMAND NOT FOUND");
         }
     }
 }
