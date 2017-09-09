@@ -31,6 +31,7 @@ public class DepappApplication implements CommandLineRunner {
 
 
         Synchronizer.synchronize();
+//        XMLHandler.create();
 
         exit(0);
     }
