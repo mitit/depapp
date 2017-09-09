@@ -45,20 +45,26 @@ public class SynchronizeServiceImpl implements SynchronizeService {
                 mapForSynchronization.entrySet().stream()
                         .filter(entry -> entry.getKey().equals(department) && entry.getKey().hashCode() == department.hashCode())
                         .forEach(entry -> {
-                    if (!entry.getKey().getDescription().equals(department.getDescription())) {
-                        departmentService.update(entry.getKey());
-                    }
-                    entry.setValue(true);
-                });
+                            if (!entry.getKey().getDescription().equals(department.getDescription())) {
+                                departmentService.update(entry.getKey());
+                            }
+                            entry.setValue(true);
+                        });
             }
         });
+
 
         for (Map.Entry<Department, Boolean> entry : mapForSynchronization.entrySet()) {
             if (!entry.getValue()) departmentsToInsert.add(entry.getKey());
         }
         if (departmentsToInsert.size() > 0)
             departmentService.save(departmentsToInsert);
+
+        if (true) throw new RuntimeException();
+
         if (departmentsToDelete.size() > 0)
             departmentService.delete(departmentsToDelete);
+
+        log.info("DATA SYNCHRONIZED");
     }
 }

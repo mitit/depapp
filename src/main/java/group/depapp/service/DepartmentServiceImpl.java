@@ -5,8 +5,6 @@ import group.depapp.repository.DepartmentRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,11 +21,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public boolean save(List<Department> departmentDTOS) {
-
-        ArrayList<Department> departments = new ArrayList<>();
-
-        for (Department department : departmentDTOS) departments.add(department.toDepartmentEntity());
+    public boolean save(List<Department> departments) {
 
         try {
             if (departments.size() == 1) {
@@ -53,10 +47,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public boolean delete(List<Department> departmentDTOS) {
-        ArrayList<Department> departments = new ArrayList<>();
-
-        for (Department department : departmentDTOS) departments.add(department.toDepartmentEntity());
+    public boolean delete(List<Department> departments) {
 
         try {
             if (departments.size() == 1) {

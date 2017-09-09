@@ -39,8 +39,8 @@ public class DepappApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-//        xmlHandler.create();
-        synchronizer.synchronize();
+//        xmlService.create();
+        synchronizeService.synchronize();
 
         if (args.length > 0) {
             String command = args[0];
@@ -54,8 +54,10 @@ public class DepappApplication implements CommandLineRunner {
                 default:
                     break;
             }
+            log.info("APP STARTED");
         } else {
             System.out.println("Не введена команда");
+            log.info("COMMAND NOT FOUND");
         }
 
         exit(0);

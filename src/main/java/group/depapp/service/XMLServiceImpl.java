@@ -24,7 +24,6 @@ public class XMLServiceImpl implements XMLService {
 
     private static final Logger log = Logger.getLogger(XMLServiceImpl.class);
 
-
     private DepartmentService departmentService;
 
     @Autowired
@@ -36,10 +35,6 @@ public class XMLServiceImpl implements XMLService {
     public void create() {
 
         List<Department> departmentList = departmentService.getAll();
-
-        for (Department department : departmentList)
-            System.out.println("c:" + department.getDepCode() + " j:" +
-                    department.getDepJob() + " desc:" + department.getDescription());
 
         try {
             DocumentBuilderFactory dbFactory =
@@ -89,14 +84,10 @@ public class XMLServiceImpl implements XMLService {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
-            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
             NodeList nList = doc.getElementsByTagName("department");
-            System.out.println("----------------------------");
-
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
-                System.out.println("\nCurrent Element :" + nNode.getNodeName());
                 Department department = new Department();
 
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -109,17 +100,12 @@ public class XMLServiceImpl implements XMLService {
                         department.setDescription(eElement.getElementsByTagName("description").item(0).getTextContent());
                     }
                 }
-
                 departmentList.add(department);
                 log.info("XML FILE PARSED");
             }
         } catch (Exception e) {
             log.error("ERROR PARSING XML FILE" + e.getMessage(), e);
         }
-
-        for (Department department : departmentList)
-            System.out.println("c:" + department.getDepCode() + " j:" +
-                    department.getDepJob() + " desc:" + department.getDescription());
 
         return departmentList;
     }
