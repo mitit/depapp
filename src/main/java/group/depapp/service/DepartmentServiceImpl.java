@@ -35,7 +35,7 @@ public class DepartmentServiceImpl implements DepartmentService {
             } else {
                 departmentRepository.save(departments);
             }
-            log.error("DATA SAVED");
+            log.info("DATA SAVED");
             return true;
         } catch (Exception e) {
             log.error("ERROR SAVING DATA: " + e.getMessage(), e);
