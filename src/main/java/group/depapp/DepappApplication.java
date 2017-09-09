@@ -30,7 +30,7 @@ public class DepappApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
 
-        Synchronizer.synchronize();
+//        Synchronizer.synchronize();
 //        XMLHandler.create();
 
         exit(0);

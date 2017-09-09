@@ -5,6 +5,7 @@ import group.depapp.service.DepartmentService;
 import group.depapp.service.DepartmentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,14 +15,15 @@ import java.util.Map;
 @Service
 public class Synchronizer {
 
-    static DepartmentService departmentService;
+    DepartmentService departmentService;
 
     @Autowired
     public Synchronizer(DepartmentService departmentService) {
         this.departmentService = departmentService;
     }
 
-    public static void synchronize() {
+    @Transactional
+    public void synchronize() {
         XMLHandler xmlHandler = new XMLHandler(departmentService);
 
 
