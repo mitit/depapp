@@ -39,6 +39,9 @@ public class DepappApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+//        xmlHandler.create();
+        synchronizer.synchronize();
+
         if (args.length > 0) {
             String command = args[0];
             switch (command) {

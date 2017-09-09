@@ -2,6 +2,7 @@ package group.depapp.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 
 
 @Configuration
@@ -27,6 +31,8 @@ import javax.sql.DataSource;
 @PropertySource(value = {"classpath:application.properties"})
 
 public class AppConfig {
+
+    private static final Logger log = Logger.getLogger(AppConfig.class);
 
     @Autowired
     private Environment env;
@@ -51,11 +57,23 @@ public class AppConfig {
 
     @Bean
     public DataSource dataSource() {
+        FileInputStream fis;
+        Properties property = new Properties();
         HikariConfig config = new HikariConfig();
-        config.setDriverClassName(env.getProperty("spring.dataSource.driver-class-name"));
-        config.setJdbcUrl(env.getProperty("spring.dataSource.url"));
-        config.setUsername(env.getProperty("spring.dataSource.username"));
-        config.setPassword(env.getProperty("spring.dataSource.password"));
+
+        try {
+            fis = new FileInputStream("src/main/resources/application.properties");
+            property.load(fis);
+
+            config.setDriverClassName(property.getProperty("spring.dataSource.driver-class-name"));
+            config.setJdbcUrl(property.getProperty("spring.dataSource.url"));
+            config.setUsername(property.getProperty("spring.dataSource.username"));
+            config.setPassword(property.getProperty("spring.dataSource.password"));
+
+            log.info("DATASOURCE CREATED");
+        } catch (IOException e) {
+            log.error("ERROR DATASOURCE CREATING: " + e.getMessage(), e);
+        }
         return new HikariDataSource(config);
     }
 
