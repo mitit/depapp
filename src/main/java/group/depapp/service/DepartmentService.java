@@ -1,16 +1,16 @@
 package group.depapp.service;
 
-import group.depapp.domain.DepartmentDTO;
+import group.depapp.domain.Department;
 
 import java.util.List;
 
 public interface DepartmentService {
 
-    boolean save(List<DepartmentDTO> departmentDTOS);
+    boolean save(List<Department> departments);
 
-    List<DepartmentDTO> getAll();
+    List<Department> getAll();
 
-    boolean delete(List<DepartmentDTO> departmentDTOS);
+    boolean delete(List<Department> departments);
 
-    boolean update(DepartmentDTO departmentDTO);
+    boolean update(Department department);
 }

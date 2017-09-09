@@ -1,6 +1,6 @@
 package group.depapp.util;
 
-import group.depapp.domain.DepartmentDTO;
+import group.depapp.domain.Department;
 import group.depapp.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,11 +31,11 @@ public class XMLHandler {
 
     public void create() {
 
-        List<DepartmentDTO> departmentDTOList = departmentService.getAll();
+        List<Department> departmentList = departmentService.getAll();
 
-        for (DepartmentDTO departmentDTO : departmentDTOList)
-            System.out.println("c:" + departmentDTO.getDepCode() + " j:" +
-                    departmentDTO.getDepJob() + " desc:" + departmentDTO.getDescription());
+        for (Department department : departmentList)
+            System.out.println("c:" + department.getDepCode() + " j:" +
+                    department.getDepJob() + " desc:" + department.getDescription());
 
         try {
             DocumentBuilderFactory dbFactory =
@@ -46,7 +46,7 @@ public class XMLHandler {
             Element rootElement = doc.createElement("table");
             doc.appendChild(rootElement);
 
-            for (DepartmentDTO departmentDTO : departmentDTOList) {
+            for (Department departmentDTO : departmentList) {
                 Element department = doc.createElement("department");
                 rootElement.appendChild(department);
 
@@ -75,8 +75,8 @@ public class XMLHandler {
         }
     }
 
-    public List<DepartmentDTO> parse() {
-        List<DepartmentDTO> departmentDTOList = new ArrayList<>();
+    public List<Department> parse() {
+        List<Department> departmentList = new ArrayList<>();
         try {
             File inputFile = new File("db.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -91,29 +91,29 @@ public class XMLHandler {
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
                 System.out.println("\nCurrent Element :" + nNode.getNodeName());
-                DepartmentDTO departmentDTO = new DepartmentDTO();
+                Department department = new Department();
 
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
 
-                    departmentDTO.setDepCode(eElement.getElementsByTagName("depCode").item(0).getTextContent());
-                    departmentDTO.setDepJob(eElement.getElementsByTagName("depJob").item(0).getTextContent());
+                    department.setDepCode(eElement.getElementsByTagName("depCode").item(0).getTextContent());
+                    department.setDepJob(eElement.getElementsByTagName("depJob").item(0).getTextContent());
 
                     if (eElement.getElementsByTagName("description").item(0) != null) {
-                        departmentDTO.setDescription(eElement.getElementsByTagName("description").item(0).getTextContent());
+                        department.setDescription(eElement.getElementsByTagName("description").item(0).getTextContent());
                     }
                 }
 
-                departmentDTOList.add(departmentDTO);
+                departmentList.add(department);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        for (DepartmentDTO departmentDTO : departmentDTOList)
-            System.out.println("c:" + departmentDTO.getDepCode() + " j:" +
-                    departmentDTO.getDepJob() + " desc:" + departmentDTO.getDescription());
+        for (Department department : departmentList)
+            System.out.println("c:" + department.getDepCode() + " j:" +
+                    department.getDepJob() + " desc:" + department.getDescription());
 
-        return departmentDTOList;
+        return departmentList;
     }
 }

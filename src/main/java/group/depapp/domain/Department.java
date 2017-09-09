@@ -1,6 +1,9 @@
 package group.depapp.domain;
 
-public class Department {
+
+import java.io.Serializable;
+
+public class Department implements Serializable {
 
     private Integer id;
     private String depCode;
@@ -10,12 +13,6 @@ public class Department {
     public Department() {
     }
 
-    public Department(String depCode, String depJob, String description) {
-        this.depCode = depCode;
-        this.depJob = depJob;
-        this.description = description;
-    }
-
     public Department(Integer id, String depCode, String depJob, String description) {
         this.id = id;
         this.depCode = depCode;
@@ -23,12 +20,16 @@ public class Department {
         this.description = description;
     }
 
-    public Integer getId() {
-        return id;
+    public Department(String depCode, String depJob, String description) {
+        this.depCode = depCode;
+        this.depJob = depJob;
+        this.description = description;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public Department(Department department) {
+        this.depCode = department.getDepCode();
+        this.depJob = department.getDepJob();
+        this.description = department.getDescription();
     }
 
     public String getDepCode() {
@@ -53,5 +54,33 @@ public class Department {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Department toDepartmentEntity() {
+        Department department = new Department();
+
+        department.setDepCode(this.getDepCode());
+        department.setDepJob(this.getDepJob());
+        department.setDescription(this.getDescription());
+
+        return department;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Department that = (Department) o;
+
+        if (!depCode.equals(that.depCode)) return false;
+        return depJob.equals(that.depJob);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = depCode.hashCode();
+        result = 31 * result + depJob.hashCode();
+        return result;
     }
 }

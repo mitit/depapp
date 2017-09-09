@@ -1,7 +1,6 @@
 package group.depapp.service;
 
 import group.depapp.domain.Department;
-import group.depapp.domain.DepartmentDTO;
 import group.depapp.repository.DepartmentRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +23,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public boolean save(List<DepartmentDTO> departmentDTOS) {
+    public boolean save(List<Department> departmentDTOS) {
 
         ArrayList<Department> departments = new ArrayList<>();
 
-        for (DepartmentDTO departmentDTO : departmentDTOS) departments.add(departmentDTO.toDepartmentEntity());
+        for (Department department : departmentDTOS) departments.add(department.toDepartmentEntity());
 
         try {
             if (departments.size() == 1) {
@@ -44,19 +43,19 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<DepartmentDTO> getAll() {
+    public List<Department> getAll() {
 
         return departmentRepository.getAll()
                 .stream()
-                .map(DepartmentDTO::new)
+                .map(Department::new)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public boolean delete(List<DepartmentDTO> departmentDTOS) {
+    public boolean delete(List<Department> departmentDTOS) {
         ArrayList<Department> departments = new ArrayList<>();
 
-        for (DepartmentDTO departmentDTO : departmentDTOS) departments.add(departmentDTO.toDepartmentEntity());
+        for (Department department : departmentDTOS) departments.add(department.toDepartmentEntity());
 
         try {
             if (departments.size() == 1) {
@@ -72,10 +71,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public boolean update(DepartmentDTO departmentDTO) {
+    public boolean update(Department department) {
 
         try {
-            departmentRepository.update(departmentDTO.toDepartmentEntity());
+            departmentRepository.update(department.toDepartmentEntity());
             return true;
         } catch (Exception e) {
             log.error("ERROR UPDATING DATA: " + e.getMessage(), e);

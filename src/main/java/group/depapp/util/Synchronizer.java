@@ -1,6 +1,6 @@
 package group.depapp.util;
 
-import group.depapp.domain.DepartmentDTO;
+import group.depapp.domain.Department;
 import group.depapp.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,13 +26,13 @@ public class Synchronizer {
         XMLHandler xmlHandler = new XMLHandler(departmentService);
 
 
-        List<DepartmentDTO> dtosFromXML = xmlHandler.parse();
-        List<DepartmentDTO> dtosFromDB = departmentService.getAll();
+        List<Department> dtosFromXML = xmlHandler.parse();
+        List<Department> dtosFromDB = departmentService.getAll();
 
-        Map<DepartmentDTO, Boolean> mapForSynchronization = new HashMap<>();
+        Map<Department, Boolean> mapForSynchronization = new HashMap<>();
 
-        List<DepartmentDTO> departmentsToDelete = new ArrayList<>();
-        List<DepartmentDTO> departmentsToInsert = new ArrayList<>();
+        List<Department> departmentsToDelete = new ArrayList<>();
+        List<Department> departmentsToInsert = new ArrayList<>();
 
         dtosFromXML.forEach(dto -> mapForSynchronization.put(dto, false));
         dtosFromDB.forEach(dto -> {
@@ -50,7 +50,7 @@ public class Synchronizer {
             }
         });
 
-        for (Map.Entry<DepartmentDTO, Boolean> entry : mapForSynchronization.entrySet()) {
+        for (Map.Entry<Department, Boolean> entry : mapForSynchronization.entrySet()) {
             if (!entry.getValue()) departmentsToInsert.add(entry.getKey());
         }
         if (departmentsToInsert.size() > 0)
