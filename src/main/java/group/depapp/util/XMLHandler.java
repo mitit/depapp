@@ -2,6 +2,7 @@ package group.depapp.util;
 
 import group.depapp.domain.Department;
 import group.depapp.service.DepartmentService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
@@ -21,6 +22,9 @@ import java.util.List;
 
 @Component
 public class XMLHandler {
+
+    private static final Logger log = Logger.getLogger(XMLHandler.class);
+
 
     private DepartmentService departmentService;
 
@@ -70,8 +74,9 @@ public class XMLHandler {
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(new File("db.xml"));
             transformer.transform(source, result);
+            log.info("XML FILE CREATED");
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("ERROR CREATING XML FILE" + e.getMessage(), e);
         }
     }
 
@@ -105,9 +110,10 @@ public class XMLHandler {
                 }
 
                 departmentList.add(department);
+                log.info("XML FILE PARSED");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("ERROR PARSING XML FILE" + e.getMessage(), e);
         }
 
         for (Department department : departmentList)

@@ -35,6 +35,7 @@ public class DepartmentServiceImpl implements DepartmentService {
             } else {
                 departmentRepository.save(departments);
             }
+            log.error("DATA SAVED");
             return true;
         } catch (Exception e) {
             log.error("ERROR SAVING DATA: " + e.getMessage(), e);
@@ -63,6 +64,7 @@ public class DepartmentServiceImpl implements DepartmentService {
             } else {
                 departmentRepository.delete(departments);
             }
+            log.info("DATA DELETED");
             return true;
         } catch (Exception e) {
             log.error("ERROR DELETING DATA: " + e.getMessage(), e);
@@ -75,6 +77,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         try {
             departmentRepository.update(department.toDepartmentEntity());
+            log.info("DATA UPDATED");
             return true;
         } catch (Exception e) {
             log.error("ERROR UPDATING DATA: " + e.getMessage(), e);

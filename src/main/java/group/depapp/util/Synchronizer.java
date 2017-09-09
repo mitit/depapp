@@ -2,6 +2,7 @@ package group.depapp.util;
 
 import group.depapp.domain.Department;
 import group.depapp.service.DepartmentService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,9 @@ import java.util.Map;
 
 @Service
 public class Synchronizer {
+
+    private static final Logger log = Logger.getLogger(Synchronizer.class);
+
 
     private DepartmentService departmentService;
 

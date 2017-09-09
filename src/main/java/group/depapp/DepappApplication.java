@@ -2,6 +2,7 @@ package group.depapp;
 
 import group.depapp.util.Synchronizer;
 import group.depapp.util.XMLHandler;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
@@ -11,7 +12,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
-
 import static java.lang.System.exit;
 
 @SpringBootApplication
@@ -19,6 +19,8 @@ import static java.lang.System.exit;
 @ComponentScan
 @EntityScan("group.depapp")
 public class DepappApplication implements CommandLineRunner {
+
+    private static final Logger log = Logger.getLogger(DepappApplication.class);
 
     @Autowired
     private Synchronizer synchronizer;
