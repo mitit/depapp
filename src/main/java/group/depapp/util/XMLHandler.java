@@ -1,18 +1,20 @@
 package group.depapp.util;
 
-import javax.xml.parsers.DocumentBuilderFactory;
+import group.depapp.domain.DepartmentDTO;
+import group.depapp.service.DepartmentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import group.depapp.domain.DepartmentDTO;
-import group.depapp.service.DepartmentService;
-import group.depapp.service.DepartmentServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.w3c.dom.*;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +22,7 @@ import java.util.List;
 @Component
 public class XMLHandler {
 
-    DepartmentService departmentService;
+    private DepartmentService departmentService;
 
     @Autowired
     public XMLHandler(DepartmentService departmentService) {

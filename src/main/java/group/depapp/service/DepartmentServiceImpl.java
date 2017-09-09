@@ -16,7 +16,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     private static final Logger log = Logger.getLogger(DepartmentServiceImpl.class);
 
-    DepartmentRepository<Department> departmentRepository;
+    private DepartmentRepository<Department> departmentRepository;
 
     @Autowired
     public DepartmentServiceImpl(DepartmentRepository<Department> departmentRepository) {
@@ -64,7 +64,7 @@ public class DepartmentServiceImpl implements DepartmentService {
             } else {
                 departmentRepository.delete(departments);
             }
-                return true;
+            return true;
         } catch (Exception e) {
             log.error("ERROR DELETING DATA: " + e.getMessage(), e);
             return false;
@@ -75,7 +75,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public boolean update(DepartmentDTO departmentDTO) {
 
         try {
-                departmentRepository.update(departmentDTO.toDepartmentEntity());
+            departmentRepository.update(departmentDTO.toDepartmentEntity());
             return true;
         } catch (Exception e) {
             log.error("ERROR UPDATING DATA: " + e.getMessage(), e);

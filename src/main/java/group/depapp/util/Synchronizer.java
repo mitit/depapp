@@ -2,7 +2,6 @@ package group.depapp.util;
 
 import group.depapp.domain.DepartmentDTO;
 import group.depapp.service.DepartmentService;
-import group.depapp.service.DepartmentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +14,7 @@ import java.util.Map;
 @Service
 public class Synchronizer {
 
-    DepartmentService departmentService;
+    private DepartmentService departmentService;
 
     @Autowired
     public Synchronizer(DepartmentService departmentService) {

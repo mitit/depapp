@@ -52,10 +52,10 @@ public class AppConfig {
     @Bean
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
-        config.setDriverClassName(env.getProperty("driver-class-name"));
-        config.setJdbcUrl(env.getProperty("url"));
-        config.setUsername(env.getProperty("username"));
-        config.setPassword(env.getProperty("password"));
+        config.setDriverClassName(env.getProperty("spring.dataSource.driver-class-name"));
+        config.setJdbcUrl(env.getProperty("spring.dataSource.url"));
+        config.setUsername(env.getProperty("spring.dataSource.username"));
+        config.setPassword(env.getProperty("spring.dataSource.password"));
         return new HikariDataSource(config);
     }
 

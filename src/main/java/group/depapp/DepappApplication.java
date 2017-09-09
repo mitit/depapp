@@ -1,6 +1,5 @@
 package group.depapp;
 
-
 import group.depapp.util.Synchronizer;
 import group.depapp.util.XMLHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +21,10 @@ import static java.lang.System.exit;
 public class DepappApplication implements CommandLineRunner {
 
     @Autowired
-    Synchronizer synchronizer;
+    private Synchronizer synchronizer;
+
     @Autowired
-    XMLHandler xmlHandler;
+    private XMLHandler xmlHandler;
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(DepappApplication.class);

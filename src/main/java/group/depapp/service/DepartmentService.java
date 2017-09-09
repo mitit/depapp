@@ -1,6 +1,5 @@
 package group.depapp.service;
 
-import group.depapp.domain.Department;
 import group.depapp.domain.DepartmentDTO;
 
 import java.util.List;

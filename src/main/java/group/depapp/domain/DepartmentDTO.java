@@ -1,7 +1,9 @@
 package group.depapp.domain;
 
 
-public class DepartmentDTO {
+import java.io.Serializable;
+
+public class DepartmentDTO implements Serializable {
 
     private String depCode;
     private String depJob;

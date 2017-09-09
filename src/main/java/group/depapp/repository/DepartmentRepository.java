@@ -1,12 +1,12 @@
 package group.depapp.repository;
 
 import group.depapp.domain.Department;
-import group.depapp.domain.MainDomain;
 import org.springframework.jdbc.core.RowMapper;
+
 import java.sql.ResultSet;
 import java.util.List;
 
-public interface DepartmentRepository<X extends MainDomain> {
+public interface DepartmentRepository<X extends Department> {
 
     RowMapper<Department> ROW_MAPPER = (ResultSet resultSet, int rowNum) -> {
         return new Department(resultSet.getString("dep_code"),

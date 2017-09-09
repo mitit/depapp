@@ -1,6 +1,6 @@
 package group.depapp.domain;
 
-public class Department implements MainDomain {
+public class Department {
 
     private Integer id;
     private String depCode;
