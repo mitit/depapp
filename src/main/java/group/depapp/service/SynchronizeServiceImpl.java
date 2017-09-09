@@ -17,7 +17,7 @@ public class SynchronizeServiceImpl implements SynchronizeService {
     private static final Logger log = Logger.getLogger(SynchronizeServiceImpl.class);
 
 
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
 
     @Autowired
     public SynchronizeServiceImpl(DepartmentService departmentService) {
@@ -27,15 +27,15 @@ public class SynchronizeServiceImpl implements SynchronizeService {
     @Override
     @Transactional
     public void synchronize() {
-        XMLService xmlService = new XMLServiceImpl(departmentService);
+        final XMLService xmlService = new XMLServiceImpl(departmentService);
 
-        List<Department> departmentsFromXML = xmlService.parse();
-        List<Department> departmentsFromDB = departmentService.getAll();
+        final List<Department> departmentsFromXML = xmlService.parse();
+        final List<Department> departmentsFromDB = departmentService.getAll();
 
-        List<Department> departmentsToDelete = new ArrayList<>();
-        List<Department> departmentsToInsert = new ArrayList<>();
+        final List<Department> departmentsToDelete = new ArrayList<>();
+        final List<Department> departmentsToInsert = new ArrayList<>();
 
-        Map<Department, Boolean> mapForSynchronization = new HashMap<>();
+        final Map<Department, Boolean> mapForSynchronization = new HashMap<>();
         departmentsFromXML.forEach(department -> mapForSynchronization.put(department, false));
 
         departmentsFromDB.forEach(department -> {

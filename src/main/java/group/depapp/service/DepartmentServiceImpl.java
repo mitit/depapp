@@ -13,7 +13,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     private static final Logger log = Logger.getLogger(DepartmentServiceImpl.class);
 
-    private DepartmentRepository<Department> departmentRepository;
+    private final DepartmentRepository<Department> departmentRepository;
 
     @Autowired
     public DepartmentServiceImpl(DepartmentRepository<Department> departmentRepository) {

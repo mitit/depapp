@@ -24,7 +24,8 @@ public class XMLServiceImpl implements XMLService {
 
     private static final Logger log = Logger.getLogger(XMLServiceImpl.class);
 
-    private DepartmentService departmentService;
+
+    private final DepartmentService departmentService;
 
     @Autowired
     public XMLServiceImpl(DepartmentService departmentService) {
@@ -34,7 +35,7 @@ public class XMLServiceImpl implements XMLService {
     @Override
     public void create() {
 
-        List<Department> departmentList = departmentService.getAll();
+        final List<Department> departmentList = departmentService.getAll();
 
         try {
             DocumentBuilderFactory dbFactory =
@@ -77,7 +78,7 @@ public class XMLServiceImpl implements XMLService {
 
     @Override
     public List<Department> parse() {
-        List<Department> departmentList = new ArrayList<>();
+        final List<Department> departmentList = new ArrayList<>();
         try {
             File inputFile = new File("db.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();

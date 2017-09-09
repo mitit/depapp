@@ -66,11 +66,9 @@ public class Department implements Serializable {
 
     public Department toDepartmentEntity() {
         Department department = new Department();
-
         department.setDepCode(this.getDepCode());
         department.setDepJob(this.getDepJob());
         department.setDescription(this.getDescription());
-
         return department;
     }
 

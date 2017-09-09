@@ -14,7 +14,6 @@ public interface DepartmentRepository<X extends Department> {
                 resultSet.getString("description"));
     };
 
-
     void save(X domain);
 
     void save(List<X> domainList);
