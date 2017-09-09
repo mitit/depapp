@@ -7,7 +7,7 @@ import group.depapp.exception.FileContainsSameObjectsException;
 import java.util.List;
 
 public interface XMLService {
-    void create();
+    void create(String pathname);
 
-    List<Department> loadData() throws FileContainsSameObjectsException, FieldTooLongException;
+    List<Department> loadData(String pathname) throws FileContainsSameObjectsException, FieldTooLongException;
 }

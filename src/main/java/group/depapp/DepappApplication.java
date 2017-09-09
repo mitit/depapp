@@ -39,10 +39,10 @@ public class DepappApplication implements CommandLineRunner {
             String command = args[0];
             switch (command) {
                 case "create":
-                    xmlService.create();
+                    xmlService.create(args[1]);
                     break;
                 case "sync":
-                    synchronizeService.synchronize();
+                    synchronizeService.synchronize(args[1]);
                     break;
                 default:
                     break;

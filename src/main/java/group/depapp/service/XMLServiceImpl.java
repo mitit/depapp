@@ -36,7 +36,7 @@ public class XMLServiceImpl implements XMLService {
     }
 
     @Override
-    public void create() {
+    public void create(String pathname) {
 
         final List<Department> departmentList = departmentService.getAll();
 
@@ -71,7 +71,7 @@ public class XMLServiceImpl implements XMLService {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("db.xml"));
+            StreamResult result = new StreamResult(new File(pathname));
             transformer.transform(source, result);
             log.info("XML FILE CREATED");
         } catch (Exception e) {
@@ -80,10 +80,10 @@ public class XMLServiceImpl implements XMLService {
     }
 
     @Override
-    public List<Department> loadData() throws FileContainsSameObjectsException, FieldTooLongException{
+    public List<Department> loadData(String pathname) throws FileContainsSameObjectsException, FieldTooLongException{
         final List<Department> departmentList = new ArrayList<>();
         try {
-            File inputFile = new File("db.xml");
+            File inputFile = new File(pathname);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);

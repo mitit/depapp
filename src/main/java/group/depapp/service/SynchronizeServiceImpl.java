@@ -26,12 +26,12 @@ public class SynchronizeServiceImpl implements SynchronizeService {
 
     @Override
     @Transactional
-    public void synchronize() {
+    public void synchronize(String pathname) {
         final XMLService xmlService = new XMLServiceImpl(departmentService);
         List<Department> departmentsFromXML = null;
 
         try {
-            departmentsFromXML = xmlService.loadData();
+            departmentsFromXML = xmlService.loadData(pathname);
         } catch (Exception e) {
             log.error("ERROR XML GETTING" + e.getMessage(), e);
         }
