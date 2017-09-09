@@ -19,11 +19,10 @@ public class DepartmentRepositoryImpl implements DepartmentRepository<Department
 
     private static final String SQL_DELETE_FROM_DEPARTMENT = "delete from department where (dep_code = ? and dep_job = ?)";
 
-    @Autowired
     JdbcOperations jdbcTemplate;
 
     @Autowired
-    public void setJdbcTemplate(JdbcOperations jdbcTemplate) {
+    public DepartmentRepositoryImpl(JdbcOperations jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

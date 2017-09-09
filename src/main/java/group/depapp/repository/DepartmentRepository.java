@@ -2,8 +2,6 @@ package group.depapp.repository;
 
 import group.depapp.domain.Department;
 import group.depapp.domain.MainDomain;
-import group.depapp.util.JpaConfig;
-import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.util.List;
@@ -16,7 +14,6 @@ public interface DepartmentRepository<X extends MainDomain> {
                 resultSet.getString("description"));
     };
 
-//    JdbcOperations jdbcTemplate = JpaConfig.jdbcTemplate();
 
     void save(X domain);
 

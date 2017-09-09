@@ -7,7 +7,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import group.depapp.domain.DepartmentDTO;
+import group.depapp.service.DepartmentService;
 import group.depapp.service.DepartmentServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.*;
 
@@ -18,9 +20,15 @@ import java.util.List;
 @Component
 public class XMLHandler {
 
+    DepartmentService departmentService;
+
+    @Autowired
+    public XMLHandler(DepartmentService departmentService) {
+        this.departmentService = departmentService;
+    }
+
     public void create() {
 
-        DepartmentServiceImpl departmentService = new DepartmentServiceImpl();
         List<DepartmentDTO> departmentDTOList = departmentService.getAll();
 
         for (DepartmentDTO departmentDTO : departmentDTOList)

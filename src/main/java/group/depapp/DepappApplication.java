@@ -2,6 +2,7 @@ package group.depapp;
 
 
 import group.depapp.util.Synchronizer;
+import group.depapp.util.XMLHandler;
 import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,8 +29,8 @@ public class DepappApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Synchronizer synchronizer = new Synchronizer();
-        synchronizer.synchronize();
+
+        Synchronizer.synchronize();
 
         exit(0);
     }
