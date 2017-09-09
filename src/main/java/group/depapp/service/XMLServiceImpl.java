@@ -4,6 +4,7 @@ import group.depapp.domain.Department;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -19,7 +20,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
 public class XMLServiceImpl implements XMLService {
 
     private static final Logger log = Logger.getLogger(XMLServiceImpl.class);
@@ -77,7 +78,7 @@ public class XMLServiceImpl implements XMLService {
     }
 
     @Override
-    public List<Department> parse() {
+    public List<Department> loadData() {
         final List<Department> departmentList = new ArrayList<>();
         try {
             File inputFile = new File("db.xml");

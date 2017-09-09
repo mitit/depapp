@@ -35,9 +35,6 @@ public class DepappApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        xmlService.create();
-        synchronizeService.synchronize();
-
         if (args.length > 0) {
             String command = args[0];
             switch (command) {
@@ -55,7 +52,5 @@ public class DepappApplication implements CommandLineRunner {
             System.out.println("Не введена команда");
             log.info("COMMAND NOT FOUND");
         }
-
-        exit(0);
     }
 }

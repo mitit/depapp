@@ -16,7 +16,6 @@ public class SynchronizeServiceImpl implements SynchronizeService {
 
     private static final Logger log = Logger.getLogger(SynchronizeServiceImpl.class);
 
-
     private final DepartmentService departmentService;
 
     @Autowired
@@ -29,7 +28,7 @@ public class SynchronizeServiceImpl implements SynchronizeService {
     public void synchronize() {
         final XMLService xmlService = new XMLServiceImpl(departmentService);
 
-        final List<Department> departmentsFromXML = xmlService.parse();
+        final List<Department> departmentsFromXML = xmlService.loadData();
         final List<Department> departmentsFromDB = departmentService.getAll();
 
         final List<Department> departmentsToDelete = new ArrayList<>();
@@ -52,7 +51,6 @@ public class SynchronizeServiceImpl implements SynchronizeService {
                         });
             }
         });
-
 
         for (Map.Entry<Department, Boolean> entry : mapForSynchronization.entrySet()) {
             if (!entry.getValue()) departmentsToInsert.add(entry.getKey());

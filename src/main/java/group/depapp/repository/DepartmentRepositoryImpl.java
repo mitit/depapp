@@ -73,8 +73,6 @@ public class DepartmentRepositoryImpl implements DepartmentRepository<Department
                         + "' and dep_job = '"
                         + departmentList.get(i).getDepJob() + "')";
         }
-
-        System.out.println(newDeleteString);
         jdbcOperations.update(newDeleteString, departmentList.get(0).getDepCode(), departmentList.get(0).getDepJob());
     }
 }
