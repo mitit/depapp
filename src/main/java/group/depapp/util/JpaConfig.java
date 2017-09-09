@@ -1,17 +1,11 @@
 package group.depapp.util;
 
-import group.depapp.DepappApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-//import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-//import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
-//import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
 import javax.sql.DataSource;
 import java.io.FileInputStream;
@@ -21,17 +15,15 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-//@EnableJpaRepositories(basePackageClasses = DepappApplication.class)
-
 public class JpaConfig {
 
     @Bean("jdbcTemplate")
-    public JdbcOperations jdbcTemplate() {
+    public static JdbcOperations jdbcTemplate() {
         return new JdbcTemplate(dataSource());
     }
 
     @Bean("dataSource")
-    public DataSource dataSource() {
+    public static DataSource dataSource() {
         FileInputStream fis;
         Properties property = new Properties();
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();

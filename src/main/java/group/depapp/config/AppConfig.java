@@ -1,6 +1,7 @@
 package group.depapp.config;
 
-import org.apache.tomcat.jdbc.pool.DataSource;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,9 @@ import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.sql.DataSource;
+
 
 @Configuration
 @ComponentScan
@@ -47,12 +51,12 @@ public class AppConfig {
 
     @Bean
     public DataSource dataSource() {
-        DataSource dataSource = new DataSource();
-        dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
-        dataSource.setUrl(env.getProperty("jdbc.url"));
-        dataSource.setUsername(env.getProperty("jdbc.username"));
-        dataSource.setPassword(env.getProperty("jdbc.password"));
-        return dataSource;
+        HikariConfig config = new HikariConfig();
+        config.setDriverClassName(env.getProperty("driver-class-name"));
+        config.setJdbcUrl(env.getProperty("url"));
+        config.setUsername(env.getProperty("username"));
+        config.setPassword(env.getProperty("password"));
+        return new HikariDataSource(config);
     }
 
     @Bean
