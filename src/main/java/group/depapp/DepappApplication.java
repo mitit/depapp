@@ -1,5 +1,10 @@
 package group.depapp;
 
+
+/**
+ * Стартовый файл для запуска приложения
+ */
+
 import group.depapp.service.SynchronizeService;
 import group.depapp.service.XMLService;
 import org.apache.log4j.Logger;
@@ -10,8 +15,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-
-import static java.lang.System.exit;
 
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
@@ -45,12 +48,14 @@ public class DepappApplication implements CommandLineRunner {
                     synchronizeService.synchronize(args[1]);
                     break;
                 default:
+                    System.out.println("Некорректная команда");
+                    log.error("INCORRECT COMMAND");
                     break;
             }
             log.info("APP STARTED");
         } else {
             System.out.println("Не введена команда");
-            log.error("COMMAND NOT FOUND");
+            log.error("COMMAND NOT INPUT");
         }
     }
 }

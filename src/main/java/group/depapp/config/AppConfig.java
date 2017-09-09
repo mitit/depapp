@@ -25,6 +25,10 @@ import java.io.IOException;
 import java.util.Properties;
 
 
+/**
+ * Конфигурационный файл для подключения к базе данных и конфигурации бинов для работы с ней
+ */
+
 @Configuration
 @ComponentScan
 @EnableTransactionManagement

@@ -3,21 +3,17 @@ package group.depapp.domain;
 
 import java.io.Serializable;
 
+
+/**
+ * Ссущность, описывающая объект из таблицы Department
+ */
 public class Department implements Serializable {
 
-    private Integer id;
     private String depCode;
     private String depJob;
     private String description;
 
     public Department() {
-    }
-
-    public Department(Integer id, String depCode, String depJob, String description) {
-        this.id = id;
-        this.depCode = depCode;
-        this.depJob = depJob;
-        this.description = description;
     }
 
     public Department(String depCode, String depJob, String description) {
@@ -30,14 +26,6 @@ public class Department implements Serializable {
         this.depCode = department.getDepCode();
         this.depJob = department.getDepJob();
         this.description = department.getDescription();
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getDepCode() {
